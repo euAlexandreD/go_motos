@@ -1,19 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-2">
+    <div class="container d-flex align-items-center justify-content-between">
 
-<div class="container-12 p-4 bg-dark">
-    <div class="row">
-       <div class="col d-flex justify-content-center align-items-center">
-           <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid rounded-circle shadow" style="width: 200px">
-       </div>
-        <div class="col-4 d-flex justify-content-center align-items-center fs-5">
-            <p>🏆 Tornando seu sonho realidade 🏆</p>
+        <!-- Logo -->
+        <a class="navbar-brand m-0" href="#">
+            <img src="{{ asset('assets/images/logo_ajustado.png') }}" class="logo-navbar">
+        </a>
+
+        <!-- TEXTO CENTRAL -->
+        <div class="text-light fw-light text-center d-none d-lg-block flex-grow-1">
+            🏆 Tornando seu sonho realidade 🏆
         </div>
-        <div class="col-4 d-flex align-items-center justify-content-end">
-            <nav class="d-flex justify-content-center align-items-center gap-4 me-5">
-                <a href="" class="btn btn-outline-secondary px-3 border-0">Quem somos</a>
-                <a href="" class="btn btn-outline-secondary px-3 border-0">Catalogo</a>
-                <a href="" class="btn btn-outline-secondary px-3 border-0">Entre em contato</a>
-            </nav>
+
+        <!-- Botão mobile -->
+        <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="#">Quem somos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="{{ route('home') }}">Catálogo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="#">Contato</a>
+                </li>
+
+                @if (session('user'))
+                    <li class="nav-item">
+                        <a class="btn btn-warning ms-3 px-3" href="{{ route('new') }}">
+                            Anunciar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-2 px-3" href="{{ route('logout') }}">
+                            Logout
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <span class="text-light ms-3">
+                               Olá, {{ session('user.name') }}
+                        </span>
+                    </li>
+
+                    @else
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-2 px-3" href="{{ route('login') }}">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-2 px-3" href="#">
+                            Cadastre-se
+                        </a>
+                    </li>
+                @endif
+
+            </ul>
         </div>
     </div>
-</div>
-<hr>
+</nav>
+<style>
+    .logo-navbar {
+    max-height: 50px;
+    height: auto;
+    width: auto;
+}
+</style>

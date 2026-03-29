@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    public function notes()
+    public function bike()
     {
-
+        return $this->hasMany(Bikes::class);
     }
 }
