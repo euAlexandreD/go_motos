@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BikeImage;
 use App\Bikes;
 use App\Services\Operations;
 use App\User;
@@ -22,9 +23,15 @@ class MainController extends Controller
             // Não logado → mostra todas as motos
             $bikes = Bikes::all();
         }
+          $bikes = Bikes::with('images')->get()->toArray();
 
+        return view('catalog', ['bikes' => $bikes], compact('bikes'));
+    }
 
-        return view('catalog', ['bikes' => $bikes]);
+    public function showBikes()
+    {
+        $bikes = Bikes::with('images')->get();
+        return view('bike', compact('bikes'));
     }
 
     public function newBike()
@@ -64,10 +71,32 @@ class MainController extends Controller
             $bike->year = $request->text_year;
             $bike->km = $request->text_km;
             $bike->price = $request->text_price;
+
             $bike->save();
 
-            return redirect()->route('home');
-    }
+                $images = [];
+                if ($request->hasFile('images')) {
+                    $uploadedFiles = $request->file('images');
+                    // Garante que é um array
+                    if (!is_array($uploadedFiles)) {
+                        $uploadedFiles = [$uploadedFiles];
+                    }
+
+                    foreach ($uploadedFiles as $image) {
+                        // Verifica se é um arquivo válido
+                        if ($image && $image->isValid()) {
+                            $extension = $image->extension();
+                            $imageName = md5($image->getClientOriginalName() . time()) . '.' . $extension;
+                            $image->move(public_path('img/bikes'), $imageName);
+                            BikeImage::create([
+                                'bike_id' => $bike->id,
+                                'image' => $imageName
+                            ]);
+                        }
+                    }
+                }
+                     return redirect()->route('home');
+        }
 
     public function bike()
     {
@@ -83,4 +112,5 @@ class MainController extends Controller
 
         return view('bike_details', ['bike' => $bike]);
     }
+
 }

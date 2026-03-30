@@ -10,8 +10,15 @@
 
             <h3 class="text-center mb-4">Cadastrar Moto</h3>
 
-            <form action="{{ route('newBikeSubmit') }}" method="post">
+            <form action="{{ route('newBikeSubmit') }}" method="post" enctype="multipart/form-data">
                 @csrf
+
+                  <div class="mb-3">
+                    <label class="form-label">Imagens</label>
+                    <input type="file"
+                           class="form-control-file"
+                           name="images[]" multiple accept="image/*">
+                </div>
 
                 <!-- Marca -->
                 <div class="mb-3">

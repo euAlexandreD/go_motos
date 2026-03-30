@@ -10,4 +10,14 @@ class Bikes extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+        public function images()
+    {
+        return $this->hasMany(BikeImage::class, 'bike_id', 'id');
+    }
+
+    public function getFirstImage()
+    {
+        return $this->images()->first();
+    }
 }

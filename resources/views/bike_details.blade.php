@@ -4,16 +4,31 @@
 @include('top_bar')
 
 <div class="container py-5">
-
-    <div class="row g-4">
-
-        <!-- IMAGEM -->
         <div class="col-md-6">
-            <div class="card bg-dark border-0 shadow-lg">
-                <img src="https://via.placeholder.com/600x400"
-                     class="img-fluid rounded"
-                     alt="Moto">
+
+            <!-- IMAGEM PRINCIPAL -->
+            <div class="card bg-dark border-0 shadow-lg p-2">
+
+                <img id="mainImage"
+                    src="{{ asset('img/bikes/' . $bike['image']) }}"
+                    class="img-fluid rounded main-bike-img"
+                    alt="Moto">
+
             </div>
+
+            <!-- MINIATURAS -->
+            <div class="d-flex gap-2 mt-3 flex-wrap">
+
+                @foreach($bike->images as $image)
+
+                <img src="{{ asset('img/bikes/' . $image['image']) }}"
+                    class="thumb-bike"
+                    onclick="changeImage(this)">
+
+                @endforeach
+
+            </div>
+
         </div>
 
         <!-- INFORMAÇÕES -->
@@ -77,5 +92,43 @@
     </div>
 
 </div>
+
+    <style>
+        .main-bike-img{
+        width:100%;
+        height:420px;
+        object-fit:cover;
+        cursor: zoom-in;
+        transition: transform .3s;
+    }
+
+    .main-bike-img:hover{
+        transform: scale(1.05);
+    }
+
+    .thumb-bike{
+        width:90px;
+        height:70px;
+        object-fit:cover;
+        border-radius:6px;
+        cursor:pointer;
+        border:2px solid transparent;
+        transition:.2s;
+    }
+
+    .thumb-bike:hover{
+        border:2px solid #ffc107;
+    }
+    </style>
+
+        <script>
+
+            function changeImage(element){
+
+                document.getElementById("mainImage").src = element.src;
+
+            }
+
+        </script>
 
 @endsection
