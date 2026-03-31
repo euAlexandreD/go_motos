@@ -46,19 +46,23 @@ class MainController extends Controller
                 'text_mark' => 'required|min:3|max:20',
                 'text_model' => 'required|min:3|max:20',
                 'text_year' => 'required|min:3|max:20',
+                'text_description' => 'required|min:5|max:2000'
             ],
             [
                 'text_mark.required' => 'Esse campo é obtigatório',
                 'text_model.required' => 'Esse campo é obtigatório',
                 'text_year.required' => 'Esse campo é obtigatório',
+                'text_description.required' => 'Esse campo é obtigatório',
 
                 'text_mark.min' => 'Esse campo deve ter no minimo 3 caracteres',
                 'text_model.min' => 'Esse campo deve ter no minimo 3 caracteres',
                 'text_year.min' => 'Esse campo deve ter no minimo 3 caracteres',
+                'text_description.min' => 'Esse campo deve ter no minimo 3 caracteres',
 
                 'text_mark.max' => 'Esse campo deve ter no máximo 20 caracteres',
                 'text_model.max' => 'Esse campo deve ter no máximo 20 caracteres',
                 'text_year.max' => 'Esse campo deve ter no máximo 20 caracteres',
+                'text_description.max' => 'Esse campo deve ter no máximo 2000 caracteres',
 
             ]);
 
@@ -71,6 +75,7 @@ class MainController extends Controller
             $bike->year = $request->text_year;
             $bike->km = $request->text_km;
             $bike->price = $request->text_price;
+            $bike->description = $request->text_description;
 
             $bike->save();
 
@@ -111,6 +116,44 @@ class MainController extends Controller
         $bike = Bikes::findOrFail($id);
 
         return view('bike_details', ['bike' => $bike]);
+    }
+
+    public function deleteBike($id)
+    {
+        $id= Operations::decryptId($id);
+        $bike = Bikes::findOrFail($id);
+        return view('delete_bike', [ 'bike' => $bike]);
+    }
+
+    public function deleteConfirm($id)
+    {
+
+        //decript id
+        $id = Operations::decryptId($id);
+
+        if($id === null){
+            return redirect()->route('home');
+        }
+
+        //carregar a nota
+        $bike = Bikes::find($id);
+
+        //deletar a nota
+        //remover do banco
+        //$note->delete();
+
+        //atualizar colouna de deleted_at
+        //$note->deleted_at = date('Y:m:d H:i:s');
+        //$note->save();
+
+        //softdelete configurado no Model
+        $bike->delete();
+
+        //remover do banco com com softdelete
+        //$note->forceDelete();
+
+        return redirect()->route('home');
+
     }
 
 }

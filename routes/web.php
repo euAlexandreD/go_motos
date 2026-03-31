@@ -14,3 +14,5 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::post('loginSubmit', [AuthController::class, 'loginSubmit']);
 Route::get('/bikeDetails/{id}', [MainController::class, 'bikeDetails'])->name('bikeDetails');
+Route::get('deleteBike/{id}', [MainController::class, 'deleteBike'])->name('deleteBike');
+Route::get('deleteConfirm/{id}', [MainController::class, 'deleteConfirm'])->name('deleteConfirm');

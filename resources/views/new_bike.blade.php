@@ -66,6 +66,18 @@
                            value="{{ old('price') }}">
                 </div>
 
+                <!-- Descrição -->
+                 <div class="mb-4">
+                    <label class="form-label">Descrição</label>
+                    <textarea
+                           class="form-control bg-secondary text-light border-0"
+                           name="text_description"
+                           rows="6"
+                           value="{{ old('price') }}"></textarea>
+                </div>
+
+
+
                 <!-- Botão -->
                 <button type="submit" class="btn btn-warning w-100 py-2 fw-bold">
                     Cadastrar Moto

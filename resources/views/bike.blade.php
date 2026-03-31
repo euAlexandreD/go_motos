@@ -6,9 +6,9 @@
 
 
         @if (isset($bike['images']) && !empty($bike['images']))
-            <img src="{{ asset('img/bikes/' . $bike['image'][0]['image']) }}"
-             class="card-img-top"
-             alt="Moto">
+             <img src="{{ asset('img/bikes/' . $bike['images'][0]['image']) }}"
+            class="card-img-top"
+            alt="Moto">
         @else
              {{-- Imagem padrão caso não tenha imagens --}}
             <img src="{{ asset('img/bikes/default.jpg') }}"
@@ -36,6 +36,7 @@
 
                         <div class="d-flex justify-content-between mt-3">
                             <button class="btn btn-outline-light btn-sm"><a href="{{ route('bikeDetails', ['id' => Crypt::encrypt($bike['id'])]) }}">Detalhes</a></button>
+                            <button class="btn btn-outline-light btn-sm"><a href="{{ route('deleteBike', ['id' => Crypt::encrypt($bike['id'])]) }}">Excluir</a></button>
                             <button class="btn btn-warning btn-sm">Entrar em contato</button>
                         </div>
 
