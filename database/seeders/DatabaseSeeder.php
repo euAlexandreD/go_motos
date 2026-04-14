@@ -2,13 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Notifications\Notifiable;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    use HasFactory, Notifiable, WithoutModelEvents;
 
     /**
      * Seed the application's database.
